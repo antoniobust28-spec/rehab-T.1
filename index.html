@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LIFT-FLOW · TONY · S1/4 PF1/4</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  ::-webkit-scrollbar{width:4px}
+  ::-webkit-scrollbar-track{background:#111}
+  ::-webkit-scrollbar-thumb{background:#e63030}
+  body{background:#0a0a0a;color:#f0f0f0;font-family:'Barlow Condensed','Arial Narrow',sans-serif;letter-spacing:.02em;min-height:100vh}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  .tabs{display:flex;overflow-x:auto;border-bottom:1px solid #222;background:#0e0e0e;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab-btn{padding:12px 14px;font-size:11px;font-weight:700;letter-spacing:1.5px;font-family:'Barlow Condensed',sans-serif;border-right:1px solid #1a1a1a;min-width:76px;text-align:center;text-transform:uppercase;color:#555;transition:all .2s;white-space:nowrap;border-top:none;border-bottom:none;border-left:none;cursor:pointer;background:transparent}
+  .tab-btn.active{background:#e63030;color:#fff}
+  .tab-btn:hover:not(.active){color:#e63030}
+  .day-panel{display:none;padding:16px 14px;animation:fadeIn .3s ease forwards}
+  .day-panel.active{display:block}
+  .block{margin-bottom:14px}
+  .block-title{font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:2.5px;color:#e63030;font-weight:700;text-transform:uppercase;padding:8px 12px;background:#141414;border-left:3px solid #e63030;margin-bottom:2px}
+  .mob-list{background:#0e0e0e;border:1px solid #1e1e1e;padding:10px 14px}
+  .mob-item{font-size:13px;color:#ccc;padding:5px 0;border-bottom:1px solid #1a1a1a;font-family:'Barlow',sans-serif;display:flex;align-items:flex-start;gap:8px;line-height:1.4}
+  .mob-item:last-child{border-bottom:none}
+  .mob-item::before{content:'•';color:#e63030;font-size:16px;line-height:1;flex-shrink:0}
+  .sets-table{width:100%;border:1px solid #1e1e1e;overflow:hidden}
+  .sets-header{display:grid;grid-template-columns:1fr 60px 100px;background:#141414;padding:8px 12px;font-size:10px;color:#555;letter-spacing:2px;font-weight:700;border-bottom:1px solid #1e1e1e}
+  .set-row{display:grid;grid-template-columns:1fr 60px 100px;padding:9px 12px;border-bottom:1px solid #1a1a1a;align-items:center;transition:background .15s}
+  .set-row:last-child{border-bottom:none}
+  .set-row:hover{background:rgba(230,48,48,.05)}
+  .set-row:nth-child(odd){background:#0e0e0e}
+  .set-reps{text-align:center;font-size:14px;font-weight:700;color:#e63030;font-family:'Barlow Condensed',sans-serif}
+  .set-pct{text-align:center;font-size:12px;color:#888;font-family:'Barlow',sans-serif}
+  .set-series{font-size:13px;color:#aaa;font-family:'Barlow',sans-serif}
+  .tag-badge{background:rgba(230,48,48,.15);border:1px solid #e63030;color:#e63030;padding:5px 12px;font-size:10px;letter-spacing:2px;font-weight:700;text-transform:uppercase}
+  .pill{background:rgba(230,48,48,.15);border:1px solid rgba(230,48,48,.4);color:#e63030;font-size:10px;letter-spacing:2px;font-weight:700;padding:3px 8px;text-transform:uppercase;display:inline-block;margin:2px}
+  .rest-badge{display:inline-block;background:rgba(230,48,48,.1);border:1px solid rgba(230,48,48,.3);color:#e63030;font-size:10px;padding:3px 8px;letter-spacing:1px;font-weight:700;margin:6px 0;font-family:'Barlow Condensed',sans-serif}
+  .wod-box{background:#111;border:1px solid #2a2a2a;border-left:3px solid #e63030;padding:12px 14px;margin-bottom:4px}
+  .wod-title{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;color:#e63030;font-weight:700;margin-bottom:8px;text-transform:uppercase}
+  .wod-item{font-size:13px;color:#ccc;padding:4px 0;border-bottom:1px solid #1a1a1a;font-family:'Barlow',sans-serif;display:flex;gap:8px;align-items:center}
+  .wod-item:last-child{border-bottom:none}
+  .wod-item::before{content:'→';color:#e63030;flex-shrink:0}
+  .rm-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:4px}
+  .rm-card{background:#0e0e0e;border:1px solid #1e1e1e;border-top:2px solid #e63030;padding:10px 12px}
+  .rm-move{font-size:9px;letter-spacing:2px;color:#e63030;font-weight:700;text-transform:uppercase;margin-bottom:6px}
+  .rm-input{background:#0a0a0a;border:1px solid #2a2a2a;color:#f0f0f0;font-size:14px;padding:5px 8px;width:100%;font-family:'Barlow Condensed',sans-serif;font-weight:700;text-align:center}
+  .rm-input:focus{outline:none;border-color:#e63030}
+  .rm-label{font-size:9px;color:#555;font-family:'Barlow',sans-serif;margin-top:4px;text-align:center}
+  .reg-table{width:100%;border:1px solid #1e1e1e;overflow:hidden}
+  .reg-header{display:grid;grid-template-columns:85px 55px 1fr 65px;background:#141414;padding:8px 12px;font-size:9px;color:#555;letter-spacing:1.5px;font-weight:700;border-bottom:1px solid #1e1e1e;text-transform:uppercase}
+  .reg-row{display:grid;grid-template-columns:85px 55px 1fr 65px;padding:10px 12px;border-bottom:1px solid #1a1a1a;align-items:center}
+  .reg-row:last-child{border-bottom:none}
+  .reg-row:nth-child(odd){background:#0e0e0e}
+  .reg-day{font-size:13px;font-weight:600}
+  .reg-input{background:#0a0a0a;border:1px solid #2a2a2a;color:#f0f0f0;font-size:12px;padding:4px 6px;width:100%;font-family:'Barlow',sans-serif;text-align:center}
+  .reg-input:focus{outline:none;border-color:#e63030}
+  .reg-bloque{background:#0a0a0a;border:1px solid #2a2a2a;color:#f0f0f0;font-size:11px;padding:4px 6px;width:100%;font-family:'Barlow',sans-serif}
+  .reg-bloque:focus{outline:none;border-color:#e63030}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div style="background:linear-gradient(135deg,#0a0a0a,#1a0808,#0a0a0a);border-bottom:2px solid #e63030;padding:20px 16px;text-align:center;position:relative;overflow:hidden">
+  <div style="position:absolute;top:0;right:0;width:180px;height:180px;background:radial-gradient(circle,rgba(230,48,48,.12),transparent 70%);pointer-events:none"></div>
+  <div style="background:#fff;border-radius:8px;padding:8px 18px;max-width:200px;margin:0 auto 14px;display:inline-block">
+    <img src="logo.LF.jpg" alt="LIFT-FLOW" style="width:100%;max-width:180px;display:block">
+  </div>
+  <div style="font-size:10px;letter-spacing:4px;color:#e63030;font-weight:700;margin-bottom:4px">LIFT-FLOW · REHABILITACIÓN</div>
+  <div style="font-size:36px;font-weight:900;text-transform:uppercase;line-height:1;letter-spacing:3px">TONY</div>
+  <div style="font-size:12px;color:#777;margin-top:6px;font-family:'Barlow',sans-serif;letter-spacing:1px">SEMANA 1/4 · P.F. 1/4</div>
+  <div style="margin-top:10px">
+    <span class="pill">Estabilidad</span><span class="pill">Movilidad</span><span class="pill">Hombros</span><span class="pill">Escápula</span>
+  </div>
+</div>
+
+<!-- OBJETIVOS -->
+<div style="padding:10px 14px;background:#0e0e0e;border-bottom:1px solid #1e1e1e">
+  <div style="font-size:9px;letter-spacing:3px;color:#e63030;font-weight:700;margin-bottom:6px;text-transform:uppercase">Objetivos del bloque</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
+    <div style="font-size:11px;color:#888;font-family:'Barlow',sans-serif">✓ Mejorar la estabilidad y movilidad</div>
+    <div style="font-size:11px;color:#888;font-family:'Barlow',sans-serif">✓ Aprender a cargar tobillos y rodillas</div>
+    <div style="font-size:11px;color:#888;font-family:'Barlow',sans-serif">✓ Aprender a cargar caderas y hombros</div>
+    <div style="font-size:11px;color:#e63030;font-family:'Barlow',sans-serif;font-weight:600">⚠ Énfasis en sobrecarga de hombros</div>
+    <div style="font-size:11px;color:#888;font-family:'Barlow',sans-serif;grid-column:1/-1">✓ Movilidad escapular</div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="showDay(0,this)"><div style="font-size:9px;opacity:.6;letter-spacing:2px">DÍA 1</div>LUN</button>
+  <button class="tab-btn" onclick="showDay(1,this)"><div style="font-size:9px;opacity:.6;letter-spacing:2px">DÍA 2</div>MAR</button>
+  <button class="tab-btn" onclick="showDay(2,this)"><div style="font-size:9px;opacity:.6;letter-spacing:2px">DÍA 3</div>MIÉ</button>
+  <button class="tab-btn" onclick="showDay(3,this)"><div style="font-size:9px;opacity:.6;letter-spacing:2px">DÍA 4</div>JUE</button>
+  <button class="tab-btn" onclick="showDay(4,this)"><div style="font-size:9px;opacity:.6;letter-spacing:2px">DÍA 5</div>VIE</button>
+  <button class="tab-btn" onclick="showDay(5,this)"><div style="font-size:9px;opacity:.6;letter-spacing:2px">DÍA 6</div>SÁB</button>
+  <button class="tab-btn" onclick="showDay(6,this)"><div style="font-size:9px;opacity:.6;letter-spacing:2px">RM</div>METAS</button>
+  <button class="tab-btn" onclick="showDay(7,this)"><div style="font-size:9px;opacity:.6;letter-spacing:2px">LOG</div>REGISTRO</button>
+</div>
+
+<!-- DÍA 1 -->
+<div id="day-0" class="day-panel active">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+    <div>
+      <div style="font-size:10px;color:#e63030;letter-spacing:3px;font-weight:700">DÍA 1 · LUNES</div>
+      <div style="font-size:21px;font-weight:900;text-transform:uppercase">HANG MUSCLE SNATCH + BACK PUSH PRESS</div>
+    </div>
+    <span class="tag-badge">TÉCNICA + WOD</span>
+  </div>
+  <div class="block"><div class="block-title">A) Movilidad / Estabilidad</div><div class="mob-list">
+    <div class="mob-item">3×10/10 — Jalón flexores de cadera / liga</div>
+    <div class="mob-item">2×10/10 — Rotaciones externas de cadera / liga / sentado</div>
+    <div class="mob-item">3×10/10 — Rotación de hombro / externa / liga</div>
+    <div class="mob-item">3×10 — Elevaciones en "Y"</div>
+    <div class="mob-item">3×10 — Push up escapular</div>
+    <div class="mob-item">3×5/5 — Press sobre pared / liga / 3 puntos</div>
+  </div></div>
+  <div class="block"><div class="block-title">A) Técnica / Fuerza — Hang Muscle Snatch + Back Push Press</div>
+    <div style="font-size:12px;color:#888;font-family:'Barlow',sans-serif;padding:4px 12px 8px">Subir peso progresivamente siempre y cuando se sienta cómodo para realizar el movimiento.</div>
+    <div class="sets-table"><div class="sets-header"><span>SERIE</span><span style="text-align:center">REPS</span><span style="text-align:center">CARGA</span></div>
+      <div class="set-row"><div class="set-series">Series 1–5</div><div class="set-reps">4+4</div><div class="set-pct">Empezar con barra</div></div>
+    </div>
+  </div>
+  <div class="block"><div class="block-title">WOD</div><div class="wod-box">
+    <div class="wod-title">🔁 3 RONDAS · FOR TIME</div>
+    <div class="wod-item">12 — Push up</div>
+    <div class="wod-item">200m — Row</div>
+    <div class="wod-item">12 — KB swing</div>
+    <div class="wod-item">200m — Run</div>
+  </div>
+  <span class="rest-badge">1 min rest entre rondas</span></div>
+</div>
+
+<!-- DÍA 2 -->
+<div id="day-1" class="day-panel">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+    <div>
+      <div style="font-size:10px;color:#e63030;letter-spacing:3px;font-weight:700">DÍA 2 · MARTES</div>
+      <div style="font-size:21px;font-weight:900;text-transform:uppercase">GYM — ESPALDA / HOMBRO / PECHO</div>
+    </div>
+    <span class="tag-badge">FUERZA / SERIES</span>
+  </div>
+  <div class="block"><div class="block-title">Pecho</div><div class="mob-list">
+    <div class="mob-item">4×10 — Press de banca con mancuernas</div>
+    <div class="mob-item">4×10 — Aperturas en polea / pecho</div>
+  </div></div>
+  <div class="block"><div class="block-title">Hombro</div><div class="mob-list">
+    <div class="mob-item">3×10 — Press militar con barra / sentado</div>
+    <div class="mob-item">4×10 — Jalón al mentón con barra / agarre cerrado</div>
+    <div class="mob-item">3×10 — Elevaciones laterales de hombro (buscar peso sin dolor)</div>
+    <div class="mob-item">3×10 — Elevaciones frontales de hombro / mancuerna</div>
+  </div></div>
+  <div class="block"><div class="block-title">Espalda</div><div class="mob-list">
+    <div class="mob-item">4×8 a 10 — Remo en polea / agarre neutro</div>
+    <div class="mob-item">4×10 — Pull over en polea / prono</div>
+  </div></div>
+  <div class="block"><div class="block-title">Lumbar / Core</div><div class="mob-list">
+    <div class="mob-item">4×10 — Extensiones lumbares con peso</div>
+  </div></div>
+</div>
+
+<!-- DÍA 3 -->
+<div id="day-2" class="day-panel">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+    <div>
+      <div style="font-size:10px;color:#e63030;letter-spacing:3px;font-weight:700">DÍA 3 · MIÉRCOLES</div>
+      <div style="font-size:21px;font-weight:900;text-transform:uppercase">BACK PUSH PRESS + O.H.S</div>
+    </div>
+    <span class="tag-badge">TÉCNICA + WOD</span>
+  </div>
+  <div class="block"><div class="block-title">B) Movilidad / Estabilidad</div><div class="mob-list">
+    <div class="mob-item">3×10/10 — Jalón flexores de cadera / liga</div>
+    <div class="mob-item">2×10/10 — Rotaciones externas de cadera / liga / sentado</div>
+    <div class="mob-item">3×10/10 — Rotación de hombro / externa / liga</div>
+    <div class="mob-item">3×6+6 — Elevaciones en "Y+T"</div>
+    <div class="mob-item">3×10 — Push up escapular</div>
+    <div class="mob-item">3×5/5 — Press sobre pared / liga / 3 puntos</div>
+  </div></div>
+  <div class="block"><div class="block-title">B) Técnica / Fuerza — Back Push Press + O.H.S</div>
+    <div style="font-size:12px;color:#888;font-family:'Barlow',sans-serif;padding:4px 12px 8px">Subir peso progresivamente siempre y cuando se sienta cómodo para realizar el movimiento.</div>
+    <div class="sets-table"><div class="sets-header"><span>SERIE</span><span style="text-align:center">REPS</span><span style="text-align:center">CARGA</span></div>
+      <div class="set-row"><div class="set-series">Series 1–5</div><div class="set-reps">4+4</div><div class="set-pct">Empezar con barra</div></div>
+    </div>
+  </div>
+  <div class="block"><div class="block-title">WOD — AMRAP</div><div class="wod-box">
+    <div class="wod-title">🔁 AMRAP 12 MINUTOS</div>
+    <div class="wod-item">6/6 — DB snatch (35–45 lb)</div>
+    <div class="wod-item">8 — Box jump over</div>
+    <div class="wod-item">1 — Rope climb</div>
+  </div>
+  <span class="rest-badge">40sg rest</span></div>
+  <div style="text-align:center;margin:10px 0"><span class="rest-badge">DESCANSO: 5 MIN</span></div>
+  <div class="block"><div class="block-title">WOD — For Time</div><div class="wod-box">
+    <div class="wod-title">🔁 FOR TIME (repartir como quieras)</div>
+    <div class="wod-item">80 — Burpee to target</div>
+    <div class="wod-item">80 cal — Row</div>
+  </div></div>
+</div>
+
+<!-- DÍA 4 -->
+<div id="day-3" class="day-panel">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+    <div>
+      <div style="font-size:10px;color:#e63030;letter-spacing:3px;font-weight:700">DÍA 4 · JUEVES</div>
+      <div style="font-size:21px;font-weight:900;text-transform:uppercase">BACK SQUAT + MUERTO DÉFICIT</div>
+    </div>
+    <span class="tag-badge">FUERZA</span>
+  </div>
+  <div class="block"><div class="block-title">A) Estabilidad</div><div class="mob-list">
+    <div class="mob-item">4×5/5 — Step up (altura arriba de rodillas con peso) / bajar controlado (3sg)</div>
+    <div class="mob-item">3×8/8 — Desplantes barra tras nuca / estático (95lb) / libre</div>
+  </div></div>
+  <div class="block"><div class="block-title">B) Back Squat / Smith (ATG) — % del 1RM</div>
+    <div class="sets-table"><div class="sets-header"><span>SERIE</span><span style="text-align:center">REPS</span><span style="text-align:center">%RM</span></div>
+      <div class="set-row"><div class="set-series">Serie 1</div><div class="set-reps">5</div><div class="set-pct">55%</div></div>
+      <div class="set-row"><div class="set-series">Serie 2</div><div class="set-reps">5</div><div class="set-pct">60%</div></div>
+      <div class="set-row"><div class="set-series">Serie 3</div><div class="set-reps">8</div><div class="set-pct">65%</div></div>
+      <div class="set-row"><div class="set-series">Series 4–6</div><div class="set-reps">8</div><div class="set-pct">70%</div></div>
+    </div>
+  </div>
+  <div class="block"><div class="block-title">C) Muerto / Déficit — % del 1RM</div>
+    <div class="sets-table"><div class="sets-header"><span>SERIE</span><span style="text-align:center">REPS</span><span style="text-align:center">%RM</span></div>
+      <div class="set-row"><div class="set-series">Serie 1</div><div class="set-reps">10</div><div class="set-pct">60%</div></div>
+      <div class="set-row"><div class="set-series">Series 2–4</div><div class="set-reps">10</div><div class="set-pct">65%</div></div>
+    </div>
+  </div>
+  <div class="block"><div class="block-title">D) Series</div><div class="mob-list">
+    <div class="mob-item">4×10/10 — Sentadilla búlgara</div>
+    <div class="mob-item">4×10 — Curl femoral en máquina</div>
+    <div class="mob-item">4×10 — Abducciones / máquina abductores</div>
+    <div class="mob-item">3×12 a 15 — Calf raises en máquina o Smith</div>
+    <div class="mob-item">3×10 — Hip thrust (80% del máx. peso muerto)</div>
+  </div></div>
+  <div class="block"><div class="block-title">Core</div><div class="mob-list">
+    <div class="mob-item">5×20 — V ups</div>
+    <div class="mob-item">3×30/30sg — Plancha lateral</div>
+  </div></div>
+</div>
+
+<!-- DÍA 5 -->
+<div id="day-4" class="day-panel">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+    <div>
+      <div style="font-size:10px;color:#e63030;letter-spacing:3px;font-weight:700">DÍA 5 · VIERNES</div>
+      <div style="font-size:21px;font-weight:900;text-transform:uppercase">PUSH PRESS</div>
+    </div>
+    <span class="tag-badge">TÉCNICA + WOD</span>
+  </div>
+  <div class="block"><div class="block-title">Movilidad / Estabilidad</div><div class="mob-list">
+    <div class="mob-item">3×40/40sg — Dorsiflexión tobillos con liga</div>
+    <div class="mob-item">3×10/10 — Jalón flexores de cadera / liga</div>
+    <div class="mob-item">2×10/10 — Rotaciones externas de cadera / liga / sentado</div>
+    <div class="mob-item">3×10 — Elevaciones en "Y"</div>
+    <div class="mob-item">3×8 — Back press con liga (agarre abierto)</div>
+    <div class="mob-item">3×10 — O.H.S. sobre pared / tubo</div>
+  </div></div>
+  <div class="block"><div class="block-title">Fuerza / Técnica — Push Press</div>
+    <div style="font-size:12px;color:#888;font-family:'Barlow',sans-serif;padding:4px 12px 8px">Ir subiendo peso progresivamente, pero sentir cómodo el peso para realizar el movimiento.</div>
+    <div class="sets-table"><div class="sets-header"><span>SERIE</span><span style="text-align:center">REPS</span><span style="text-align:center">CARGA</span></div>
+      <div class="set-row"><div class="set-series">Series 1–6</div><div class="set-reps">8</div><div class="set-pct">Progresivo</div></div>
+    </div>
+  </div>
+  <div class="block"><div class="block-title">WOD — For Time</div><div class="wod-box">
+    <div class="wod-title">🔁 3 RONDAS · FOR TIME (27 min)</div>
+    <div class="wod-item">20 — Push up</div>
+    <div class="wod-item">20 — Wall ball</div>
+    <div class="wod-item">10 — Pull up</div>
+    <div class="wod-item">10 — Wall ball</div>
+    <div class="wod-item">2 — Rope climb</div>
+  </div>
+  <span class="rest-badge">1 min rest</span></div>
+</div>
+
+<!-- DÍA 6 -->
+<div id="day-5" class="day-panel">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+    <div>
+      <div style="font-size:10px;color:#e63030;letter-spacing:3px;font-weight:700">DÍA 6 · SÁBADO</div>
+      <div style="font-size:21px;font-weight:900;text-transform:uppercase">GYM — ESPALDA / HOMBRO / PECHO</div>
+    </div>
+    <span class="tag-badge">FUERZA / SERIES</span>
+  </div>
+  <div class="block"><div class="block-title">Pecho</div><div class="mob-list">
+    <div class="mob-item">4×10 — Press de banca con barra (subir peso progresivamente)</div>
+    <div class="mob-item">4×10 — Aperturas en polea / pecho</div>
+  </div></div>
+  <div class="block"><div class="block-title">Hombro</div><div class="mob-list">
+    <div class="mob-item">3×10 — Press militar con barra / sentado</div>
+    <div class="mob-item">4×10 — Jalón al mentón con barra / agarre cerrado</div>
+    <div class="mob-item">3×10 — Elevaciones laterales de hombro (buscar peso sin dolor)</div>
+    <div class="mob-item">3×10 — Elevaciones frontales de hombro / mancuerna</div>
+  </div></div>
+  <div class="block"><div class="block-title">Espalda</div><div class="mob-list">
+    <div class="mob-item">4×8 a 10 — Remo con barra (de preferencia remo en punta)</div>
+    <div class="mob-item">4×10 — Pull over al pecho en polea / prono</div>
+  </div></div>
+  <div class="block"><div class="block-title">Lumbar / Core</div><div class="mob-list">
+    <div class="mob-item">4×10 — Extensiones lumbares con peso</div>
+  </div></div>
+</div>
+
+<!-- METAS -->
+<div id="day-6" class="day-panel">
+  <div style="margin-bottom:14px"><div style="font-size:10px;color:#e63030;letter-spacing:3px;font-weight:700;margin-bottom:4px">MARCAS PERSONALES</div><div style="font-size:21px;font-weight:900;text-transform:uppercase">RMs + OBJETIVOS</div></div>
+  <div class="block"><div class="block-title">Registro de RMs</div><div class="rm-grid">
+    <div class="rm-card"><div class="rm-move">Back Squat</div><input class="rm-input" type="text" placeholder="Actual (kg)"><input class="rm-input" style="margin-top:4px;border-color:#333;color:#888" type="text" placeholder="Meta (kg)"><div class="rm-label">actual → meta</div></div>
+    <div class="rm-card"><div class="rm-move">Peso Muerto</div><input class="rm-input" type="text" placeholder="Actual (kg)"><input class="rm-input" style="margin-top:4px;border-color:#333;color:#888" type="text" placeholder="Meta (kg)"><div class="rm-label">actual → meta</div></div>
+    <div class="rm-card"><div class="rm-move">Push Press</div><input class="rm-input" type="text" placeholder="Actual (kg)"><input class="rm-input" style="margin-top:4px;border-color:#333;color:#888" type="text" placeholder="Meta (kg)"><div class="rm-label">actual → meta</div></div>
+    <div class="rm-card"><div class="rm-move">Bench Press</div><input class="rm-input" type="text" placeholder="Actual (kg)"><input class="rm-input" style="margin-top:4px;border-color:#333;color:#888" type="text" placeholder="Meta (kg)"><div class="rm-label">actual → meta</div></div>
+  </div></div>
+  <div class="block"><div class="block-title">✓ Objetivos del bloque</div><div class="mob-list">
+    <div class="mob-item">Mejorar la estabilidad y movilidad</div>
+    <div class="mob-item">Aprender a cargar tobillos, caderas, hombros y rodillas</div>
+    <div class="mob-item">Énfasis en sobrecarga de hombros</div>
+    <div class="mob-item">Movilidad escapular</div>
+  </div></div>
+</div>
+
+<!-- REGISTRO -->
+<div id="day-7" class="day-panel">
+  <div style="margin-bottom:14px"><div style="font-size:10px;color:#e63030;letter-spacing:3px;font-weight:700;margin-bottom:4px">SEMANA 1/4 · P.F. 1/4</div><div style="font-size:21px;font-weight:900;text-transform:uppercase">REGISTRO SEMANAL</div></div>
+  <div class="reg-table">
+    <div class="reg-header"><span>DÍA</span><span style="text-align:center">FATIGA<br>1–10</span><span style="text-align:center;padding-left:6px">BLOQUE MAYOR FATIGA</span><span style="text-align:center">MOTIV.<br>1–10</span></div>
+    <div class="reg-row"><div class="reg-day">Lunes</div><div style="text-align:center"><input class="reg-input" type="number" min="1" max="10" placeholder="–"></div><div style="padding:0 6px"><input class="reg-bloque" type="text" placeholder="ej. A, B, C…"></div><div style="text-align:center"><input class="reg-input" type="number" min="1" max="10" placeholder="–"></div></div>
+    <div class="reg-row"><div class="reg-day">Martes</div><div style="text-align:center"><input class="reg-input" type="number" min="1" max="10" placeholder="–"></div><div style="padding:0 6px"><input class="reg-bloque" type="text" placeholder="ej. A, B, C…"></div><div style="text-align:center"><input class="reg-input" type="number" min="1" max="10" placeholder="–"></div></div>
+    <div class="reg-row"><div class="reg-day">Miércoles</div><div style="text-align:center"><input class="reg-input" type="number" min="1" max="10" placeholder="–"></div><div style="padding:0 6px"><input class="reg-bloque" type="text" placeholder="ej. A, B, C…"></div><div style="text-align:center"><input class="reg-input" type="number" min="1" max="10" placeholder="–"></div></div>
+    <div class="reg-row"><div class="reg-day">Jueves</div><div style="text-align:center"><input class="reg-input" type="number" min="1" max="10" placeholder="–"></div><div style="padding:0 6px"><input class="reg-bloque" type="text" placeholder="ej. A, B, C…"></div><div style="text-align:center"><input class="reg-input" type="number" min="1" max="10" placeholder="–"></div></div>
+    <div class="reg-row"><div class="reg-day">Viernes</div><div style="text-align:center"><input class="reg-input" type="number" min="1" max="10" placeholder="–"></div><div style="padding:0 6px"><input class="reg-bloque" type="text" placeholder="ej. A, B, C…"></div><div style="text-align:center"><input class="reg-input" type="number" min="1" max="10" placeholder="–"></div></div>
+    <div class="reg-row"><div class="reg-day">Sábado</div><div style="text-align:center"><input class="reg-input" type="number" min="1" max="10" placeholder="–"></div><div style="padding:0 6px"><input class="reg-bloque" type="text" placeholder="ej. A, B, C…"></div><div style="text-align:center"><input class="reg-input" type="number" min="1" max="10" placeholder="–"></div></div>
+  </div>
+  <div style="margin-top:10px;font-size:11px;color:#555;font-family:'Barlow',sans-serif;line-height:1.6">⚠️ Los datos se guardan solo durante esta sesión. Toma captura al terminar el día.</div>
+</div>
+
+<!-- FOOTER -->
+<div style="border-top:1px solid #1a1a1a;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+  <span style="font-size:11px;color:#333;letter-spacing:3px;font-weight:700">LIFT-FLOW</span>
+  <span style="font-size:10px;color:#333;font-family:'Barlow',sans-serif">Levántate. Fluye. Repite.</span>
+</div>
+
+<script>
+function showDay(idx,btn){
+  document.querySelectorAll('.day-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('day-'+idx).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
