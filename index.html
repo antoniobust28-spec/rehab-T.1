@@ -3,52 +3,60 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LIFT-FLOW · TONY · S3/4 PF3/4 S2</title>
+<title>LIFT-FLOW · TONY · S4/4 PF4/4 S2</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   ::-webkit-scrollbar{width:4px}
   ::-webkit-scrollbar-track{background:#111}
   ::-webkit-scrollbar-thumb{background:#e63030}
-  body{background:radial-gradient(ellipse at top left,rgba(45,110,220,.09),transparent 55%),radial-gradient(ellipse at bottom right,rgba(45,110,220,.07),transparent 55%),#0a0a0a;background-attachment:fixed;color:#f0f0f0;font-family:'Barlow Condensed','Arial Narrow',sans-serif;letter-spacing:.02em;min-height:100vh}
+  body{background:radial-gradient(ellipse at top left,rgba(45,110,220,.05),transparent 55%),radial-gradient(ellipse at bottom right,rgba(45,110,220,.04),transparent 55%),#0a0a0a;background-attachment:fixed;color:#f0f0f0;font-family:'Barlow Condensed','Arial Narrow',sans-serif;letter-spacing:.02em;min-height:100vh}
   @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-  .tabs{display:flex;overflow-x:auto;border-bottom:1px solid #1c2740;background:#0e0e0e;scrollbar-width:none;box-shadow:0 6px 22px -8px rgba(45,110,220,.28)}
+  .tabs{display:flex;overflow-x:auto;border-bottom:1px solid #1c2740;background:#0e0e0e;scrollbar-width:none;box-shadow:0 4px 12px -8px rgba(45,110,220,.16)}
   .tabs::-webkit-scrollbar{display:none}
   .tab-btn{padding:12px 14px;font-size:11px;font-weight:700;letter-spacing:1.5px;font-family:'Barlow Condensed',sans-serif;border-right:1px solid #1a1a1a;min-width:76px;text-align:center;text-transform:uppercase;color:#555;transition:all .2s;white-space:nowrap;border-top:none;border-bottom:none;border-left:none;cursor:pointer;background:transparent}
   .tab-btn.active{background:#e63030;color:#fff}
   .tab-btn:hover:not(.active){color:#e63030}
   .day-panel{display:none;padding:16px 14px;animation:fadeIn .3s ease forwards}
   .day-panel.active{display:block}
-  .block{margin-bottom:14px}
-  .block-title{font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:2.5px;color:#e63030;font-weight:700;text-transform:uppercase;padding:8px 12px;background:#141414;border-left:3px solid #e63030;margin-bottom:2px;box-shadow:-6px 0 18px -6px rgba(45,110,220,.35)}
-  .mob-list{background:#0e0e0e;border:1px solid #1e2740;padding:10px 14px;box-shadow:0 0 20px -6px rgba(45,110,220,.16)}
+  .block{--c:#e63030;margin-bottom:14px}
+  .block.c1{--c:#e63030}
+  .block.c2{--c:#ff8a1f}
+  .block.c3{--c:#f2c230}
+  .block.c4{--c:#35c46a}
+  .block.c5{--c:#22c7c0}
+  .block.c6{--c:#3d8bff}
+  .block.c7{--c:#a26bff}
+  .block.c8{--c:#ff5fa8}
+  .block-title{font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:2.5px;color:var(--c);font-weight:700;text-transform:uppercase;padding:8px 12px;background:color-mix(in srgb,var(--c) 9%,#141414);border-left:3px solid var(--c);margin-bottom:2px;box-shadow:-3px 0 8px -4px color-mix(in srgb,var(--c) 30%,transparent)}
+  .mob-list{background:#0e0e0e;border:1px solid color-mix(in srgb,var(--c,#e63030) 28%,#1e2740);padding:10px 14px;box-shadow:0 0 10px -5px rgba(45,110,220,.1)}
   .mob-item{font-size:13px;color:#ccc;padding:5px 0;border-bottom:1px solid #1a1a1a;font-family:'Barlow',sans-serif;display:flex;align-items:flex-start;gap:8px;line-height:1.4}
   .mob-item:last-child{border-bottom:none}
-  .mob-item::before{content:'•';color:#e63030;font-size:16px;line-height:1;flex-shrink:0}
-  .sets-table{width:100%;border:1px solid #1e2740;overflow:hidden;box-shadow:0 0 20px -6px rgba(45,110,220,.16)}
+  .mob-item::before{content:'•';color:var(--c,#e63030);font-size:16px;line-height:1;flex-shrink:0}
+  .sets-table{width:100%;border:1px solid color-mix(in srgb,var(--c,#e63030) 28%,#1e2740);overflow:hidden;box-shadow:0 0 10px -5px rgba(45,110,220,.1)}
   .sets-header{display:grid;grid-template-columns:1fr 60px 100px;background:#141414;padding:8px 12px;font-size:10px;color:#555;letter-spacing:2px;font-weight:700;border-bottom:1px solid #1e1e1e}
   .set-row{display:grid;grid-template-columns:1fr 60px 100px;padding:9px 12px;border-bottom:1px solid #1a1a1a;align-items:center;transition:background .15s}
   .set-row:last-child{border-bottom:none}
-  .set-row:hover{background:rgba(230,48,48,.05)}
+  .set-row:hover{background:color-mix(in srgb,var(--c,#e63030) 8%,transparent)}
   .set-row:nth-child(odd){background:#0e0e0e}
-  .set-reps{text-align:center;font-size:14px;font-weight:700;color:#e63030;font-family:'Barlow Condensed',sans-serif}
+  .set-reps{text-align:center;font-size:14px;font-weight:700;color:var(--c,#e63030);font-family:'Barlow Condensed',sans-serif}
   .set-pct{text-align:center;font-size:12px;color:#888;font-family:'Barlow',sans-serif}
   .set-series{font-size:13px;color:#aaa;font-family:'Barlow',sans-serif}
   .tag-badge{background:rgba(230,48,48,.15);border:1px solid #e63030;color:#e63030;padding:5px 12px;font-size:10px;letter-spacing:2px;font-weight:700;text-transform:uppercase}
   .pill{background:rgba(230,48,48,.15);border:1px solid rgba(230,48,48,.4);color:#e63030;font-size:10px;letter-spacing:2px;font-weight:700;padding:3px 8px;text-transform:uppercase;display:inline-block;margin:2px}
-  .rest-badge{display:inline-block;background:rgba(230,48,48,.1);border:1px solid rgba(230,48,48,.3);color:#e63030;font-size:10px;padding:3px 8px;letter-spacing:1px;font-weight:700;margin:6px 0;font-family:'Barlow Condensed',sans-serif}
-  .wod-box{background:#111;border:1px solid #26314a;border-left:3px solid #e63030;padding:12px 14px;margin-bottom:4px;box-shadow:0 0 24px -6px rgba(45,110,220,.2)}
-  .wod-title{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;color:#e63030;font-weight:700;margin-bottom:8px;text-transform:uppercase}
+  .rest-badge{display:inline-block;background:color-mix(in srgb,var(--c,#e63030) 10%,transparent);border:1px solid color-mix(in srgb,var(--c,#e63030) 35%,transparent);color:var(--c,#e63030);font-size:10px;padding:3px 8px;letter-spacing:1px;font-weight:700;margin:6px 0;font-family:'Barlow Condensed',sans-serif}
+  .wod-box{background:#111;border:1px solid color-mix(in srgb,var(--c,#e63030) 28%,#26314a);border-left:3px solid var(--c,#e63030);padding:12px 14px;margin-bottom:4px;box-shadow:0 0 12px -5px rgba(45,110,220,.12)}
+  .wod-title{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;color:var(--c,#e63030);font-weight:700;margin-bottom:8px;text-transform:uppercase}
   .wod-item{font-size:13px;color:#ccc;padding:4px 0;border-bottom:1px solid #1a1a1a;font-family:'Barlow',sans-serif;display:flex;gap:8px;align-items:center}
   .wod-item:last-child{border-bottom:none}
-  .wod-item::before{content:'→';color:#e63030;flex-shrink:0}
+  .wod-item::before{content:'→';color:var(--c,#e63030);flex-shrink:0}
   .rm-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:4px}
-  .rm-card{background:#0e0e0e;border:1px solid #1e2740;border-top:2px solid #e63030;padding:10px 12px;box-shadow:0 0 20px -6px rgba(45,110,220,.16)}
+  .rm-card{background:#0e0e0e;border:1px solid #1e2740;border-top:2px solid #e63030;padding:10px 12px;box-shadow:0 0 10px -5px rgba(45,110,220,.1)}
   .rm-move{font-size:9px;letter-spacing:2px;color:#e63030;font-weight:700;text-transform:uppercase;margin-bottom:6px}
   .rm-input{background:#0a0a0a;border:1px solid #2a2a2a;color:#f0f0f0;font-size:14px;padding:5px 8px;width:100%;font-family:'Barlow Condensed',sans-serif;font-weight:700;text-align:center}
   .rm-input:focus{outline:none;border-color:#e63030}
   .rm-label{font-size:9px;color:#555;font-family:'Barlow',sans-serif;margin-top:4px;text-align:center}
-  .reg-table{width:100%;border:1px solid #1e2740;overflow:hidden;box-shadow:0 0 20px -6px rgba(45,110,220,.16)}
+  .reg-table{width:100%;border:1px solid #1e2740;overflow:hidden;box-shadow:0 0 10px -5px rgba(45,110,220,.1)}
   .reg-header{display:grid;grid-template-columns:85px 55px 1fr 65px;background:#141414;padding:8px 12px;font-size:9px;color:#555;letter-spacing:1.5px;font-weight:700;border-bottom:1px solid #1e1e1e;text-transform:uppercase}
   .reg-row{display:grid;grid-template-columns:85px 55px 1fr 65px;padding:10px 12px;border-bottom:1px solid #1a1a1a;align-items:center}
   .reg-row:last-child{border-bottom:none}
@@ -63,22 +71,22 @@
 <body>
 
 <!-- HEADER -->
-<div style="background:linear-gradient(135deg,#0a0a0a,#1a0808,#0a0a0a);border-bottom:2px solid #e63030;padding:20px 16px;text-align:center;position:relative;overflow:hidden;box-shadow:0 10px 34px -10px rgba(45,110,220,.32)">
-  <div style="position:absolute;top:0;right:0;width:180px;height:180px;background:radial-gradient(circle,rgba(230,48,48,.12),transparent 70%);pointer-events:none"></div>
-  <div style="position:absolute;bottom:-40px;left:-20px;width:220px;height:180px;background:radial-gradient(circle,rgba(45,110,220,.16),transparent 70%);pointer-events:none"></div>
+<div style="background:linear-gradient(135deg,#0a0a0a,#1a0808,#0a0a0a);border-bottom:2px solid #e63030;padding:20px 16px;text-align:center;position:relative;overflow:hidden;box-shadow:0 6px 18px -10px rgba(45,110,220,.18)">
+  <div style="position:absolute;top:0;right:0;width:180px;height:180px;background:radial-gradient(circle,rgba(230,48,48,.07),transparent 70%);pointer-events:none"></div>
+  <div style="position:absolute;bottom:-40px;left:-20px;width:220px;height:180px;background:radial-gradient(circle,rgba(45,110,220,.08),transparent 70%);pointer-events:none"></div>
   <div style="background:#fff;border-radius:8px;padding:8px 18px;max-width:200px;margin:0 auto 14px;display:inline-block">
     <img src="logo.LF.jpg" alt="LIFT-FLOW" style="width:100%;max-width:180px;display:block">
   </div>
   <div style="font-size:10px;letter-spacing:4px;color:#e63030;font-weight:700;margin-bottom:4px">LIFT-FLOW · REHABILITACIÓN</div>
   <div style="font-size:36px;font-weight:900;text-transform:uppercase;line-height:1;letter-spacing:3px">TONY</div>
-  <div style="font-size:12px;color:#777;margin-top:6px;font-family:'Barlow',sans-serif;letter-spacing:1px">SEMANA 3/4 · P.F. 3/4 · S2</div>
+  <div style="font-size:12px;color:#777;margin-top:6px;font-family:'Barlow',sans-serif;letter-spacing:1px">SEMANA 4/4 · P.F. 4/4 · S2</div>
   <div style="margin-top:10px">
     <span class="pill">Estabilidad</span><span class="pill">Movilidad</span><span class="pill">Hombros</span><span class="pill">Escápula</span>
   </div>
 </div>
 
 <!-- OBJETIVOS -->
-<div style="padding:10px 14px;background:#0e0e0e;border-bottom:1px solid #1c2740;box-shadow:0 6px 20px -10px rgba(45,110,220,.25)">
+<div style="padding:10px 14px;background:#0e0e0e;border-bottom:1px solid #1c2740;box-shadow:0 4px 12px -10px rgba(45,110,220,.15)">
   <div style="font-size:9px;letter-spacing:3px;color:#e63030;font-weight:700;margin-bottom:6px;text-transform:uppercase">Objetivos del bloque</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
     <div style="font-size:11px;color:#888;font-family:'Barlow',sans-serif">✓ Mejorar la estabilidad y movilidad</div>
@@ -97,8 +105,7 @@
   <button class="tab-btn" onclick="showDay(3,this)"><div style="font-size:9px;opacity:.6;letter-spacing:2px">DÍA 4</div>JUE</button>
   <button class="tab-btn" onclick="showDay(4,this)"><div style="font-size:9px;opacity:.6;letter-spacing:2px">DÍA 5</div>VIE</button>
   <button class="tab-btn" onclick="showDay(5,this)"><div style="font-size:9px;opacity:.6;letter-spacing:2px">DÍA 6</div>SÁB</button>
-  <button class="tab-btn" onclick="showDay(6,this)"><div style="font-size:9px;opacity:.6;letter-spacing:2px">RM</div>METAS</button>
-  <button class="tab-btn" onclick="showDay(7,this)"><div style="font-size:9px;opacity:.6;letter-spacing:2px">LOG</div>REGISTRO</button>
+  <button class="tab-btn" onclick="showDay(6,this)"><div style="font-size:9px;opacity:.6;letter-spacing:2px">LOG</div>REGISTRO</button>
 </div>
 
 <!-- DÍA 1 -->
@@ -106,32 +113,36 @@
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
     <div>
       <div style="font-size:10px;color:#e63030;letter-spacing:3px;font-weight:700">DÍA 1 · LUNES</div>
-      <div style="font-size:21px;font-weight:900;text-transform:uppercase">HIGH HANG SNATCH + BACK PUSH PRESS</div>
+      <div style="font-size:21px;font-weight:900;text-transform:uppercase">SQUAT CLEAN + POWER JERK</div>
     </div>
     <span class="tag-badge">TÉCNICA + WOD</span>
   </div>
-  <div class="block"><div class="block-title">Específicos — Movilidad / Estabilidad</div><div class="mob-list">
+  <div class="block c1"><div class="block-title">Específicos — Movilidad / Estabilidad</div><div class="mob-list">
     <div class="mob-item">3×10/10 — Jalón flexores de cadera / liga (mantener 1sg de tensión)</div>
     <div class="mob-item">2×10/10 — Rotaciones externa + interna de cadera / liga / sentado</div>
-    <div class="mob-item">2×10/10 — Abducción de cadera con liga / parado</div>
+    <div class="mob-item">2×10/10 — Abducción de cadera con liga / sentado</div>
     <div class="mob-item">3×10/10 — Rotación de hombro / externa / liga</div>
-    <div class="mob-item">3×10 — Elevaciones en "Y" sobre banco</div>
+    <div class="mob-item">3×10 — Nados sobre banco</div>
     <div class="mob-item">3×10 — Push up escapular / liga en palmas</div>
     <div class="mob-item">3×40sg — Predicador con tubo en banco</div>
   </div></div>
-  <div class="block"><div class="block-title">Técnica / Fuerza — High Hang Snatch + Back Push Press</div>
+  <div class="block c2"><div class="block-title">Técnica / Fuerza — Squat Clean + Power Jerk</div>
     <div style="font-size:12px;color:#888;font-family:'Barlow',sans-serif;padding:4px 12px 8px">Subir peso progresivamente siempre y cuando se sienta cómodo para realizar el movimiento.</div>
     <div class="sets-table"><div class="sets-header"><span>SERIE</span><span style="text-align:center">REPS</span><span style="text-align:center">CARGA</span></div>
-      <div class="set-row"><div class="set-series">Series 1–6</div><div class="set-reps">2+3</div><div class="set-pct">Empezar con la barra</div></div>
+      <div class="set-row"><div class="set-series">Series 1–6</div><div class="set-reps">3+3</div><div class="set-pct">Empezar con la barra</div></div>
     </div>
   </div>
-  <div class="block"><div class="block-title">WOD</div><div class="wod-box">
-    <div class="wod-title">🔁 EMOM · 15 MIN</div>
-    <div class="wod-item">8 — DB snatch</div>
-    <div class="wod-item">3 — Wall walk</div>
-    <div class="wod-item">10 — Box jump over</div>
-  </div>
-  <span class="rest-badge">40sg rest</span></div>
+  <div class="block c3"><div class="block-title">WOD — AMRAP 1</div><div class="wod-box">
+    <div class="wod-title">🔁 AMRAP · 9 MIN</div>
+    <div class="wod-item">8 — Cluster</div>
+    <div class="wod-item">100 mts — Run</div>
+  </div></div>
+  <div style="text-align:center;margin:10px 0"><span class="rest-badge">REST 2 MIN AL ACABAR LOS 9 MIN</span></div>
+  <div class="block c4"><div class="block-title">WOD — AMRAP 2</div><div class="wod-box">
+    <div class="wod-title">🔁 AMRAP · 9 MIN</div>
+    <div class="wod-item">4 — Wall walk</div>
+    <div class="wod-item">100 mts — Run</div>
+  </div></div>
 </div>
 
 <!-- DÍA 2 -->
@@ -143,21 +154,21 @@
     </div>
     <span class="tag-badge">FUERZA / SERIES</span>
   </div>
-  <div class="block"><div class="block-title">Pecho</div><div class="mob-list">
+  <div class="block c1"><div class="block-title">Pecho</div><div class="mob-list">
     <div class="mob-item">4×8 a 10 — Press de banca (barra) (RIR 2) (tempo 3-1-1) (hacer series de aproximaciones)</div>
     <div class="mob-item">4×10 — Aperturas en polea / pecho</div>
   </div></div>
-  <div class="block"><div class="block-title">Hombro</div><div class="mob-list">
+  <div class="block c2"><div class="block-title">Hombro</div><div class="mob-list">
     <div class="mob-item">3×10 — Press militar con mancuernas / sentado (RIR 1)</div>
     <div class="mob-item">4×10 — Jalón al mentón con barra / agarre cerrando</div>
     <div class="mob-item">4×10 — Pec-deck / hombro posterior</div>
     <div class="mob-item">3×10 — Elevaciones laterales de hombro (buscar peso con el que no haya dolor)</div>
   </div></div>
-  <div class="block"><div class="block-title">Espalda</div><div class="mob-list">
+  <div class="block c3"><div class="block-title">Espalda</div><div class="mob-list">
     <div class="mob-item">4×8 a 10 — Remo en punta o remo con barra (prono)</div>
     <div class="mob-item">4×10 — Pull over en polea / prono</div>
   </div></div>
-  <div class="block"><div class="block-title">Lumbar / Core</div><div class="mob-list">
+  <div class="block c4"><div class="block-title">Lumbar / Core</div><div class="mob-list">
     <div class="mob-item">4×10 — Extensiones lumbares con peso</div>
   </div></div>
 </div>
@@ -167,41 +178,43 @@
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
     <div>
       <div style="font-size:10px;color:#e63030;letter-spacing:3px;font-weight:700">DÍA 3 · MIÉRCOLES</div>
-      <div style="font-size:21px;font-weight:900;text-transform:uppercase">FRONT SQUAT + POWER CLEAN & JERK</div>
+      <div style="font-size:21px;font-weight:900;text-transform:uppercase">BACK SQUAT + BACK PUSH PRESS + O.H.S</div>
     </div>
     <span class="tag-badge">TÉCNICA + WOD</span>
   </div>
-  <div class="block"><div class="block-title">Específicos — Movilidad / Estabilidad</div><div class="mob-list">
+  <div class="block c1"><div class="block-title">Específicos — Movilidad / Estabilidad</div><div class="mob-list">
     <div class="mob-item">3×10/10 — Jalón flexores de cadera / liga</div>
     <div class="mob-item">2×10/10 — Rotaciones externas de cadera / liga / sentado</div>
-    <div class="mob-item">2×12/12 — Aducción de cadera con liga / parado</div>
+    <div class="mob-item">2×12/12 — Hip thrust a un pie</div>
     <div class="mob-item">3×10/10 — Rotación de hombro / externa / liga</div>
     <div class="mob-item">3×8+8 — Elevaciones en "Y+T" sobre banco</div>
     <div class="mob-item">3×10 — Push up escapular / con liga</div>
-    <div class="mob-item">3×10 — Press en rodillo</div>
+    <div class="mob-item">3×10 — Back press con liga / tubo (agarre abierto)</div>
   </div></div>
-  <div class="block"><div class="block-title">Técnica / Fuerza — Front Squat</div>
+  <div class="block c2"><div class="block-title">Técnica / Fuerza — Back Squat</div>
     <div class="sets-table"><div class="sets-header"><span>SERIE</span><span style="text-align:center">REPS</span><span style="text-align:center">CARGA</span></div>
-      <div class="set-row"><div class="set-series">Front Squat</div><div class="set-reps">3RM</div><div class="set-pct">Encontrar el 3RM del día</div></div>
+      <div class="set-row"><div class="set-series">Back Squat</div><div class="set-reps">2RM</div><div class="set-pct">Encontrar el 2RM del día</div></div>
     </div>
   </div>
-  <div class="block"><div class="block-title">Técnica / Fuerza — Power Clean + Jerk (% del mejor clean)</div>
+  <div class="block c3"><div class="block-title">Técnica / Fuerza — Back Push Press + O.H.S (% del mejor B.P. Press)</div>
     <div class="sets-table"><div class="sets-header"><span>SERIE</span><span style="text-align:center">REPS</span><span style="text-align:center">%RM</span></div>
-      <div class="set-row"><div class="set-series">Serie 1</div><div class="set-reps">3</div><div class="set-pct">60%</div></div>
-      <div class="set-row"><div class="set-series">Serie 2</div><div class="set-reps">3</div><div class="set-pct">65%</div></div>
-      <div class="set-row"><div class="set-series">Series 3–5</div><div class="set-reps">3</div><div class="set-pct">70%</div></div>
+      <div class="set-row"><div class="set-series">Serie 1</div><div class="set-reps">2+2</div><div class="set-pct">60%</div></div>
+      <div class="set-row"><div class="set-series">Serie 2</div><div class="set-reps">2+2</div><div class="set-pct">65%</div></div>
+      <div class="set-row"><div class="set-series">Series 3–6</div><div class="set-reps">2+2</div><div class="set-pct">70%</div></div>
     </div>
   </div>
-  <div class="block"><div class="block-title">WOD</div><div class="wod-box">
-    <div class="wod-title">🔁 EMOM · 15 MIN</div>
-    <div class="wod-item">10 — DB thruster (35lb x2)</div>
-    <div class="wod-item">2 — Rope climb</div>
+  <div class="block c4"><div class="block-title">WOD</div><div class="wod-box">
+    <div class="wod-title">🔁 AMRAP · 18 MIN</div>
+    <div class="wod-item">10 — Push up</div>
+    <div class="wod-item">10 — T2B</div>
+    <div class="wod-item">10 — Power snatch (85/75lb)</div>
   </div>
-  <span class="rest-badge">40sg rest</span></div>
+  <span class="rest-badge">1 min rest</span></div>
   <div style="text-align:center;margin:10px 0"><span class="rest-badge">DESCANSO: 5 MIN</span></div>
-  <div class="block"><div class="block-title">WOD — For Time</div><div class="wod-box">
-    <div class="wod-title">🔁 FOR TIME</div>
-    <div class="wod-item">1500 mts — Row</div>
+  <div class="block c5"><div class="block-title">WOD — For Time</div><div class="wod-box">
+    <div class="wod-title">🔁 FOR TIME · REPARTIR COMO QUIERAS</div>
+    <div class="wod-item">40 — Burpee pull up</div>
+    <div class="wod-item">50 — Suicidas</div>
   </div></div>
 </div>
 
@@ -214,11 +227,11 @@
     </div>
     <span class="tag-badge">FUERZA</span>
   </div>
-  <div class="block"><div class="block-title">A) Estabilidad</div><div class="mob-list">
+  <div class="block c1"><div class="block-title">A) Estabilidad</div><div class="mob-list">
     <div class="mob-item">4×5/5 — Pistol squat sobre banco</div>
-    <div class="mob-item">3×8/8 — Desplantes barra frontal / estático (95lb) / libre</div>
+    <div class="mob-item">3×8/8 — Desplantes barra tras nuca / estático (95lb) / libre</div>
   </div></div>
-  <div class="block"><div class="block-title">B) Peso Muerto — % del 1RM</div>
+  <div class="block c2"><div class="block-title">B) Peso Muerto — % del 1RM</div>
     <div class="sets-table"><div class="sets-header"><span>SERIE</span><span style="text-align:center">REPS</span><span style="text-align:center">%RM</span></div>
       <div class="set-row"><div class="set-series">Serie 1</div><div class="set-reps">6</div><div class="set-pct">65%</div></div>
       <div class="set-row"><div class="set-series">Serie 2</div><div class="set-reps">6</div><div class="set-pct">70%</div></div>
@@ -226,15 +239,16 @@
       <div class="set-row"><div class="set-series">Series 4–6</div><div class="set-reps">4 a 6</div><div class="set-pct">80% (RIR 1)</div></div>
     </div>
   </div>
-  <div class="block"><div class="block-title">C) Series</div><div class="mob-list">
+  <div class="block c3"><div class="block-title">C) Series</div><div class="mob-list">
     <div class="mob-item">4×10/10 — Sentadilla búlgara / con peso</div>
-    <div class="mob-item">4×10 — Abducciones / máquina abductores</div>
-    <div class="mob-item">3×10 — Hip thrust (85% del máx. peso muerto)</div>
+    <div class="mob-item">4×8/8 — Lateral squat / goblet</div>
+    <div class="mob-item">3×10 — Hip thrust (88% del máx. peso muerto) (RIR 2)</div>
     <div class="mob-item">3×10 — Empuje en prensa (RIR 2)</div>
     <div class="mob-item">3×12 a 15 — Calf raises en máquina o Smith</div>
     <div class="mob-item">3×10 — Curl femoral en máquina</div>
+    <div class="mob-item">3×8 a 12 — Extensión de cuádriceps en máquina</div>
   </div></div>
-  <div class="block"><div class="block-title">Core</div><div class="mob-list">
+  <div class="block c4"><div class="block-title">Core</div><div class="mob-list">
     <div class="mob-item">5×20 — V ups</div>
     <div class="mob-item">3×30/30sg — Plancha lateral</div>
   </div></div>
@@ -245,34 +259,33 @@
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
     <div>
       <div style="font-size:10px;color:#e63030;letter-spacing:3px;font-weight:700">DÍA 5 · VIERNES</div>
-      <div style="font-size:21px;font-weight:900;text-transform:uppercase">SQUAT CLEAN + POWER JERK</div>
+      <div style="font-size:21px;font-weight:900;text-transform:uppercase">JERK BALANCE + POWER CLEAN</div>
     </div>
     <span class="tag-badge">TÉCNICA + WOD</span>
   </div>
-  <div class="block"><div class="block-title">Movilidad / Estabilidad</div><div class="mob-list">
+  <div class="block c1"><div class="block-title">Movilidad / Estabilidad</div><div class="mob-list">
     <div class="mob-item">3×40/40sg — Dorsiflexión tobillos con liga</div>
     <div class="mob-item">3×10/10 — Jalón flexores de cadera / liga (mantener 1sg en tensión)</div>
     <div class="mob-item">2×10/10 — Rotaciones externa + interna de cadera / liga / sentado</div>
-    <div class="mob-item">3×8/8 — Aducción de cadera con liga / parado</div>
-    <div class="mob-item">3×8+8 — Elevaciones en "Y+T" sobre banco</div>
+    <div class="mob-item">3×20/20sg — Plancha lateral sobre banco (apoyar parte interna)</div>
+    <div class="mob-item">3×10 — Dislocación con tubo boca abajo</div>
     <div class="mob-item">3×8 — Back press con liga (agarre abierto)</div>
     <div class="mob-item">3×10 — O.H.S. sobre pared / barra chica</div>
   </div></div>
-  <div class="block"><div class="block-title">Fuerza / Técnica — Squat Clean + Power Jerk</div>
+  <div class="block c2"><div class="block-title">Técnica — Jerk Balance</div>
     <div class="sets-table"><div class="sets-header"><span>SERIE</span><span style="text-align:center">REPS</span><span style="text-align:center">CARGA</span></div>
-      <div class="set-row"><div class="set-series">Squat Clean + Power Jerk</div><div class="set-reps">—</div><div class="set-pct">Encontrar el máximo del día</div></div>
+      <div class="set-row"><div class="set-series">Jerk balance (ambos pies)</div><div class="set-reps">4×3/3</div><div class="set-pct">Subir peso progresivamente</div></div>
     </div>
   </div>
-  <div class="block"><div class="block-title">WOD</div><div class="wod-box">
-    <div class="wod-title">🔁 FOR TIME · 24 MIN · 4×4 (4 RONDAS)</div>
-    <div class="wod-item">12 — DB thruster (45lb x2)</div>
-    <div class="wod-item">300 mts — Row</div>
-  </div></div>
-  <div style="text-align:center;margin:10px 0"><span class="rest-badge">REST 3 MIN AL ACABAR</span></div>
-  <div class="block"><div class="block-title">WOD — 4 Rondas</div><div class="wod-box">
-    <div class="wod-title">🔁 4 RONDAS</div>
-    <div class="wod-item">24 — Wall ball (20 lb)</div>
-    <div class="wod-item">0.6 millas — Bike</div>
+  <div class="block c3"><div class="block-title">Fuerza — Power Clean</div>
+    <div class="sets-table"><div class="sets-header"><span>SERIE</span><span style="text-align:center">REPS</span><span style="text-align:center">CARGA</span></div>
+      <div class="set-row"><div class="set-series">Power Clean</div><div class="set-reps">—</div><div class="set-pct">Encontrar el máximo del día (mandar video)</div></div>
+    </div>
+  </div>
+  <div class="block c4"><div class="block-title">WOD</div><div class="wod-box">
+    <div class="wod-title">🔁 FOR TIME · 21-15-9-6</div>
+    <div class="wod-item">Cal row</div>
+    <div class="wod-item">Cluster (95/85)</div>
   </div></div>
 </div>
 
@@ -285,49 +298,51 @@
     </div>
     <span class="tag-badge">FUERZA / SERIES</span>
   </div>
-  <div class="block"><div class="block-title">Pecho</div><div class="mob-list">
+  <div class="block c1"><div class="block-title">Pecho</div><div class="mob-list">
     <div class="mob-item">4×10 — Press de banca con barra (subir peso progresivamente)</div>
     <div class="mob-item">4×10 — Aperturas en polea / pecho</div>
-    <div class="mob-item">3×10 — Press inclinado con mancuernas</div>
+    <div class="mob-item">3×10 — Press inclinado con barra</div>
   </div></div>
-  <div class="block"><div class="block-title">Hombro</div><div class="mob-list">
+  <div class="block c2"><div class="block-title">Hombro</div><div class="mob-list">
     <div class="mob-item">3×10 — Press militar con barra / sentado</div>
     <div class="mob-item">4×10 — Jalón al mentón con barra / agarre cerrando</div>
     <div class="mob-item">4×10 — Pec-deck / hombro posterior</div>
     <div class="mob-item">3×10 — Elevaciones laterales de hombro (buscar peso con el que no haya dolor)</div>
     <div class="mob-item">3×10 — Elevaciones frontales de hombro / mancuerna</div>
   </div></div>
-  <div class="block"><div class="block-title">Espalda</div><div class="mob-list">
+  <div class="block c3"><div class="block-title">Espalda</div><div class="mob-list">
     <div class="mob-item">4×8 a 10 — Remo con barra (de preferencia remo en punta)</div>
     <div class="mob-item">4×10 — Pull over al pecho en polea / prono</div>
   </div></div>
-  <div class="block"><div class="block-title">Lumbar / Core</div><div class="mob-list">
+  <div class="block c4"><div class="block-title">Lumbar / Core</div><div class="mob-list">
     <div class="mob-item">4×10 — Extensiones lumbares con peso</div>
     <div class="mob-item">4×20 — KB twist</div>
   </div></div>
 
-</div>
-
-<!-- METAS -->
-<div id="day-6" class="day-panel">
-  <div style="margin-bottom:14px"><div style="font-size:10px;color:#e63030;letter-spacing:3px;font-weight:700;margin-bottom:4px">MARCAS PERSONALES</div><div style="font-size:21px;font-weight:900;text-transform:uppercase">RMs + OBJETIVOS</div></div>
-  <div class="block"><div class="block-title">Registro de RMs</div><div class="rm-grid">
-    <div class="rm-card"><div class="rm-move">Back Squat</div><input class="rm-input" type="text" placeholder="Actual (kg)"><input class="rm-input" style="margin-top:4px;border-color:#333;color:#888" type="text" placeholder="Meta (kg)"><div class="rm-label">actual → meta</div></div>
-    <div class="rm-card"><div class="rm-move">Peso Muerto</div><input class="rm-input" type="text" placeholder="Actual (kg)"><input class="rm-input" style="margin-top:4px;border-color:#333;color:#888" type="text" placeholder="Meta (kg)"><div class="rm-label">actual → meta</div></div>
-    <div class="rm-card"><div class="rm-move">Push Press</div><input class="rm-input" type="text" placeholder="Actual (kg)"><input class="rm-input" style="margin-top:4px;border-color:#333;color:#888" type="text" placeholder="Meta (kg)"><div class="rm-label">actual → meta</div></div>
-    <div class="rm-card"><div class="rm-move">Bench Press</div><input class="rm-input" type="text" placeholder="Actual (kg)"><input class="rm-input" style="margin-top:4px;border-color:#333;color:#888" type="text" placeholder="Meta (kg)"><div class="rm-label">actual → meta</div></div>
+  <div style="text-align:center;margin:18px 0 12px"><span class="tag-badge">ALTERNATIVA DÍA 6 · EN EL CROSS</span></div>
+  <div class="block c5"><div class="block-title">Movilidad / Estabilidad</div><div class="mob-list">
+    <div class="mob-item">3×40/40sg — Dorsiflexión tobillos con liga</div>
+    <div class="mob-item">3×10/10 — Jalón flexores de cadera / liga (mantener 1sg en tensión)</div>
+    <div class="mob-item">2×10/10 — Rotaciones externa + interna de cadera / liga / sentado</div>
+    <div class="mob-item">3×20/20sg — Plancha lateral sobre banco (apoyar parte interna)</div>
+    <div class="mob-item">3×10 — Dislocación con tubo boca abajo</div>
+    <div class="mob-item">3×8 — Back press con liga (agarre abierto)</div>
+    <div class="mob-item">3×10 — O.H.S. sobre pared / barra chica</div>
   </div></div>
-  <div class="block"><div class="block-title">✓ Objetivos del bloque</div><div class="mob-list">
-    <div class="mob-item">Mejorar la estabilidad y movilidad</div>
-    <div class="mob-item">Aprender a cargar tobillos, caderas, hombros y rodillas</div>
-    <div class="mob-item">Énfasis en sobrecarga de hombros</div>
-    <div class="mob-item">Movilidad escapular</div>
+  <div class="block c6"><div class="block-title">Técnica / Fuerza — Tempo Power Snatch + O.H.S</div>
+    <div class="sets-table"><div class="sets-header"><span>SERIE</span><span style="text-align:center">REPS</span><span style="text-align:center">CARGA</span></div>
+      <div class="set-row"><div class="set-series">Series 1–4</div><div class="set-reps">4+4</div><div class="set-pct">Empezar con barra / ir subiendo peso</div></div>
+    </div>
+  </div>
+  <div class="block c7"><div class="block-title">Complementarios</div><div class="mob-list">
+    <div class="mob-item">4×8/8 — Step up altura de cadera</div>
+    <div class="mob-item">4×40sg — Parado de manos en la pared</div>
   </div></div>
 </div>
 
 <!-- REGISTRO -->
-<div id="day-7" class="day-panel">
-  <div style="margin-bottom:14px"><div style="font-size:10px;color:#e63030;letter-spacing:3px;font-weight:700;margin-bottom:4px">SEMANA 3/4 · P.F. 3/4 · S2</div><div style="font-size:21px;font-weight:900;text-transform:uppercase">REGISTRO SEMANAL</div></div>
+<div id="day-6" class="day-panel">
+  <div style="margin-bottom:14px"><div style="font-size:10px;color:#e63030;letter-spacing:3px;font-weight:700;margin-bottom:4px">SEMANA 4/4 · P.F. 4/4 · S2</div><div style="font-size:21px;font-weight:900;text-transform:uppercase">REGISTRO SEMANAL</div></div>
   <div class="reg-table">
     <div class="reg-header"><span>DÍA</span><span style="text-align:center">FATIGA<br>1–10</span><span style="text-align:center;padding-left:6px">BLOQUE MAYOR FATIGA</span><span style="text-align:center">MOTIV.<br>1–10</span></div>
     <div class="reg-row"><div class="reg-day">Lunes</div><div style="text-align:center"><input class="reg-input" type="number" min="1" max="10" placeholder="–"></div><div style="padding:0 6px"><input class="reg-bloque" type="text" placeholder="ej. A, B, C…"></div><div style="text-align:center"><input class="reg-input" type="number" min="1" max="10" placeholder="–"></div></div>
@@ -341,7 +356,7 @@
 </div>
 
 <!-- FOOTER -->
-<div style="border-top:1px solid #1c2740;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;margin-top:8px;box-shadow:0 -6px 20px -10px rgba(45,110,220,.25)">
+<div style="border-top:1px solid #1c2740;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;margin-top:8px;box-shadow:0 -4px 12px -10px rgba(45,110,220,.15)">
   <span style="font-size:11px;color:#333;letter-spacing:3px;font-weight:700">LIFT-FLOW</span>
   <span style="font-size:10px;color:#333;font-family:'Barlow',sans-serif">Levántate. Fluye. Repite.</span>
 </div>
