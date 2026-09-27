@@ -66,9 +66,15 @@
   .reg-input:focus{outline:none;border-color:#e63030}
   .reg-bloque{background:#0a0a0a;border:1px solid #2a2a2a;color:#f0f0f0;font-size:11px;padding:4px 6px;width:100%;font-family:'Barlow',sans-serif}
   .reg-bloque:focus{outline:none;border-color:#e63030}
-  .reg-general{width:100%;min-height:90px;background:#0a0a0a;border:1px solid #2a2a2a;color:#f0f0f0;font-size:13px;padding:10px 12px;font-family:'Barlow',sans-serif;resize:vertical;line-height:1.5}
-  .reg-general:focus{outline:none;border-color:#e63030}
-  .reg-general-label{font-size:9px;letter-spacing:2px;color:#e63030;font-weight:700;text-transform:uppercase;margin-bottom:6px}
+  .lf-field{margin-bottom:12px}
+  .lf-label{font-size:9px;letter-spacing:2px;color:#e63030;font-weight:700;text-transform:uppercase;margin-bottom:6px;font-family:'Barlow Condensed',sans-serif}
+  .lf-input{width:100%;background:#0a0a0a;border:1px solid #2a2a2a;color:#f0f0f0;font-size:13px;padding:9px 10px;font-family:'Barlow',sans-serif}
+  .lf-input:focus{outline:none;border-color:#e63030}
+  .lf-row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .lf-textarea{width:100%;min-height:90px;background:#0a0a0a;border:1px solid #2a2a2a;color:#f0f0f0;font-size:13px;padding:10px 12px;font-family:'Barlow',sans-serif;resize:vertical;line-height:1.5}
+  .lf-textarea:focus{outline:none;border-color:#e63030}
+  .lf-submit-btn{width:100%;background:#e63030;border:none;color:#fff;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:14px;font-family:'Barlow Condensed',sans-serif;cursor:pointer;margin-top:6px;box-shadow:0 0 14px -6px rgba(230,48,48,.5)}
+  .lf-submit-btn:hover{background:#ff3d3d}
 </style>
 </head>
 <body>
@@ -356,9 +362,34 @@
     <div class="reg-row"><div class="reg-day">Viernes</div><div style="text-align:center"><input class="reg-input" type="number" min="1" max="10" placeholder="–"></div><div style="padding:0 6px"><input class="reg-bloque" type="text" placeholder="ej. A, B, C…"></div><div style="text-align:center"><input class="reg-input" type="number" min="1" max="10" placeholder="–"></div></div>
     <div class="reg-row"><div class="reg-day">Sábado</div><div style="text-align:center"><input class="reg-input" type="number" min="1" max="10" placeholder="–"></div><div style="padding:0 6px"><input class="reg-bloque" type="text" placeholder="ej. A, B, C…"></div><div style="text-align:center"><input class="reg-input" type="number" min="1" max="10" placeholder="–"></div></div>
   </div>
-  <div style="margin-top:16px">
-    <div class="reg-general-label">Registro general — Cómo me sentí esta semana</div>
-    <textarea class="reg-general" placeholder="Escribe aquí un resumen general: sensaciones, dolores, progresos, dificultades técnicas, etc."></textarea>
+  <div style="margin-top:20px" id="registro-form">
+    <div class="lf-field">
+      <div class="lf-label">Sensación general</div>
+      <input class="lf-input" id="lf-sensacion" type="text" placeholder="¿Cómo te sentiste esta semana?">
+    </div>
+    <div class="lf-field">
+      <div class="lf-label">Ejercicio más difícil</div>
+      <input class="lf-input" id="lf-dificil" type="text" placeholder="¿Qué ejercicio te costó más?">
+    </div>
+    <div class="lf-field lf-row3">
+      <div>
+        <div class="lf-label">Sueño</div>
+        <input class="lf-input" id="lf-sueno" type="number" min="1" max="10" placeholder="–">
+      </div>
+      <div>
+        <div class="lf-label">Alimentación</div>
+        <input class="lf-input" id="lf-alimentacion" type="number" min="1" max="10" placeholder="–">
+      </div>
+      <div>
+        <div class="lf-label">Motivación</div>
+        <input class="lf-input" id="lf-motivacion" type="number" min="1" max="10" placeholder="–">
+      </div>
+    </div>
+    <div class="lf-field">
+      <div class="lf-label">Comentarios</div>
+      <textarea class="lf-textarea" id="lf-comentarios" placeholder="Cualquier comentario adicional..."></textarea>
+    </div>
+    <button type="button" class="lf-submit-btn" onclick="enviarRegistroSemanal()">Enviar Registro Semanal</button>
   </div>
   <div style="margin-top:10px;font-size:11px;color:#555;font-family:'Barlow',sans-serif;line-height:1.6">⚠️ Los datos se guardan solo durante esta sesión. Toma captura al terminar el día.</div>
 </div>
@@ -375,6 +406,25 @@ function showDay(idx,btn){
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('day-'+idx).classList.add('active');
   btn.classList.add('active');
+}
+
+function enviarRegistroSemanal(){
+  var sensacion = document.getElementById('lf-sensacion').value || '–';
+  var dificil = document.getElementById('lf-dificil').value || '–';
+  var sueno = document.getElementById('lf-sueno').value || '–';
+  var alimentacion = document.getElementById('lf-alimentacion').value || '–';
+  var motivacion = document.getElementById('lf-motivacion').value || '–';
+  var comentarios = document.getElementById('lf-comentarios').value || '–';
+  var texto = 'REGISTRO SEMANAL LIFT-FLOW\n'
+    + 'SEMANA 1/4 · P.F. 1/4 · S3\n\n'
+    + 'Sensación general: ' + sensacion + '\n'
+    + 'Ejercicio más difícil: ' + dificil + '\n'
+    + 'Sueño (1-10): ' + sueno + '\n'
+    + 'Alimentación (1-10): ' + alimentacion + '\n'
+    + 'Motivación (1-10): ' + motivacion + '\n'
+    + 'Comentarios: ' + comentarios;
+  var url = 'https://wa.me/17152170976?text=' + encodeURIComponent(texto);
+  window.open(url, '_blank');
 }
 </script>
 </body>
